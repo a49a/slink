@@ -1,6 +1,5 @@
 package hua.mulan.slink.side;
 
-import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.table.api.TableSchema;
 import org.apache.flink.table.dataformat.BaseRow;
 import org.apache.flink.table.functions.AsyncTableFunction;
@@ -34,6 +33,5 @@ public class RedisLookupableTableSource implements LookupableTableSource<BaseRow
     public TableSchema getTableSchema() {
         return null;
     }
-
 
 }

@@ -6,7 +6,7 @@ import org.apache.flink.table.api.java.StreamTableEnvironment;
 
 /**
  * @program: slink
- * @author: wuren
+ * @author: mulan
  * @create: 2020/08/04
  **/
 public class EnvFactory {
