@@ -30,8 +30,6 @@ public class RedisLookupableTableSource implements LookupableTableSource<BaseRow
         return null;
     }
 
-
-
     @Override
     public TableSchema getTableSchema() {
         return null;
