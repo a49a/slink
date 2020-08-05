@@ -34,7 +34,7 @@ public class RedisLookupableTableSource implements LookupableTableSource<BaseRow
 
     @Override
     public AsyncTableFunction<BaseRow> getAsyncLookupFunction(String[] strings) {
-        return null;
+        return new RedisAsyncTableFunction();
     }
 
     @Override
