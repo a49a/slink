@@ -20,10 +20,9 @@ package hua.mulan.slink;
 
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.EnvironmentSettings;
-import org.apache.flink.table.api.java.StreamTableEnvironment;
-import org.apache.flink.table.api.java.internal.StreamTableEnvironmentImpl;
-import org.apache.flink.table.planner.calcite.FlinkPlannerImpl;
-import org.apache.flink.table.planner.delegation.StreamPlanner;
+import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
+import org.apache.flink.table.factories.TableFactoryUtil;
+import org.apache.flink.table.sinks.TableSink;
 
 /**
  * @program: slink
@@ -39,6 +38,10 @@ public class EnvFactory {
             .build();
         StreamTableEnvironment bsTableEnv = StreamTableEnvironment.create(bsEnv, bsSettings);
         return bsTableEnv;
+    }
+
+    public static TableSink genTableSink() {
+        return TableFactoryUtil.findAndCreateTableSink();
     }
 
 }

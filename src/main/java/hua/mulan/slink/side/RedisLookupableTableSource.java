@@ -19,21 +19,21 @@
 package hua.mulan.slink.side;
 
 import org.apache.flink.table.api.TableSchema;
-import org.apache.flink.table.dataformat.BaseRow;
 import org.apache.flink.table.functions.AsyncTableFunction;
 import org.apache.flink.table.functions.TableFunction;
 import org.apache.flink.table.sources.LookupableTableSource;
 import org.apache.flink.table.types.DataType;
+import org.apache.flink.types.Row;
 
-public class RedisLookupableTableSource implements LookupableTableSource<BaseRow> {
+public class RedisLookupableTableSource implements LookupableTableSource<Row> {
 
     @Override
-    public TableFunction<BaseRow> getLookupFunction(String[] strings) {
+    public TableFunction<Row> getLookupFunction(String[] strings) {
         return null;
     }
 
     @Override
-    public AsyncTableFunction<BaseRow> getAsyncLookupFunction(String[] strings) {
+    public AsyncTableFunction<Row> getAsyncLookupFunction(String[] strings) {
         return new RedisAsyncTableFunction();
     }
 
