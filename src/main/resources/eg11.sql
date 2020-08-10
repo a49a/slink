@@ -14,7 +14,7 @@ CREATE TABLE ods_k (
 
 CREATE TABLE ads_m (
     id BIGINT,
-    name VARCHAR,
+    ct VARCHAR,
     PRIMARY KEY (id) NOT ENFORCED
 ) WITH (
     'connector' = 'jdbc',
@@ -25,4 +25,6 @@ CREATE TABLE ads_m (
     'sink.buffer-flush.max-rows' = '1'
 );
 
-INSERT INTO ads_m SELECT id, name FROM ods_k;
+INSERT INTO ads_m
+    SELECT id, ct
+    FROM ods_k, LATERAL TABLE(lookup_redis(name));

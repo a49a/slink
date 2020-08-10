@@ -85,7 +85,7 @@ public class SqlSubmit {
     private void callCreateTable(SqlCommandCall cmdCall) {
         String ddl = cmdCall.operands[0];
         try {
-            tEnv.sqlUpdate(ddl);
+            tEnv.executeSql(ddl);
         } catch (SqlParserException e) {
             throw new RuntimeException("SQL parse failed:\n" + ddl + "\n", e);
         }
@@ -94,7 +94,7 @@ public class SqlSubmit {
     private void callInsertInto(SqlCommandCall cmdCall) {
         String dml = cmdCall.operands[0];
         try {
-            tEnv.sqlUpdate(dml);
+            tEnv.executeSql(dml);
         } catch (SqlParserException e) {
             throw new RuntimeException("SQL parse failed:\n" + dml + "\n", e);
         }

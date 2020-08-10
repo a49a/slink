@@ -23,10 +23,14 @@ import io.lettuce.core.RedisFuture;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisHashAsyncCommands;
 import io.lettuce.core.api.async.RedisKeyAsyncCommands;
+import org.apache.flink.table.annotation.DataTypeHint;
+import org.apache.flink.table.annotation.FunctionHint;
 import org.apache.flink.table.functions.AsyncTableFunction;
 import org.apache.flink.table.functions.FunctionContext;
 import org.apache.flink.types.Row;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -36,6 +40,7 @@ import java.util.function.Consumer;
  * @author: mulan
  * @create: 2020/08/04
  **/
+@FunctionHint(output = @DataTypeHint("ROW<ct STRING>"))
 public class RedisAsyncTableFunction extends AsyncTableFunction<Row> {
 
     private RedisClient redisClient;
@@ -59,14 +64,15 @@ public class RedisAsyncTableFunction extends AsyncTableFunction<Row> {
         async = connection.async();
     }
 
-    public void eval(CompletableFuture<Row> outputFuture, String key) {
+    public void eval(CompletableFuture<Collection<Row>> outputFuture, String key) {
         RedisFuture<Map<String, String>> redisFuture = ((RedisHashAsyncCommands) async).hgetall(key);
         redisFuture.thenAccept(new Consumer<Map<String, String>>() {
             @Override
             public void accept(Map<String, String> values) {
                 int len = 1;
                 Row row = new Row(len);
-                outputFuture.complete(row);
+                row.setField(0, values.get("ct"));
+                outputFuture.complete(Collections.singletonList(row));
             }
         });
     }

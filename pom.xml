@@ -12,11 +12,12 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <flink.version>1.11.1</flink.version>
-    <scala.version>2.12</scala.version>
+    <scala.version>2.11</scala.version>
   </properties>
 
   <dependencies>
-    <!-- Flink modules -->
+
+    <!-- Flink SQL -->
     <dependency>
       <groupId>org.apache.flink</groupId>
       <artifactId>flink-table-api-java</artifactId>
@@ -43,13 +44,6 @@
       <version>${flink.version}</version>
       <scope>provided</scope>
     </dependency>
-
-<!--    <dependency>-->
-<!--      <groupId>org.apache.flink</groupId>-->
-<!--      <artifactId>flink-jdbc_${scala.version}</artifactId>-->
-<!--      <version>${flink.version}</version>-->
-<!--      <scope>provided</scope>-->
-<!--    </dependency>-->
 
     <!-- CLI dependencies -->
     <dependency>
@@ -85,6 +79,11 @@
     </dependency>
 
     <!-- jdbc -->
+<!--    <dependency>-->
+<!--      <groupId>org.apache.flink</groupId>-->
+<!--      <artifactId>flink-jdbc_${scala.version}</artifactId>-->
+<!--      <version>${flink.version}</version>-->
+<!--    </dependency>-->
     <dependency>
       <groupId>org.apache.flink</groupId>
       <artifactId>flink-jdbc_${scala.version}</artifactId>

@@ -31,7 +31,7 @@ public class FooTableSInk implements AppendStreamTableSink<Row> {
 
     @Override
     public DataStreamSink<?> consumeDataStream(DataStream<Row> dataStream) {
-        return null;
+        return dataStream.print();
     }
 
     @Override
