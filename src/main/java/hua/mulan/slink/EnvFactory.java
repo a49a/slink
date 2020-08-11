@@ -23,6 +23,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 import org.apache.flink.table.factories.TableFactoryUtil;
+import org.apache.flink.table.functions.ScalarFunction;
 import org.apache.flink.table.sinks.TableSink;
 
 /**
@@ -44,7 +45,9 @@ public class EnvFactory {
     }
 
     private static void registerUdf(StreamTableEnvironment tEnv) {
+        tEnv.createTemporarySystemFunction("tr", Tr.class);
         tEnv.createTemporarySystemFunction("lookup_redis", RedisAsyncTableFunction.class);
+        tEnv.createTemporarySystemFunction("tf", Tf.class);
     }
 
 }

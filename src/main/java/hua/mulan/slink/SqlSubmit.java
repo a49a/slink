@@ -24,6 +24,7 @@ import hua.mulan.slink.cli.SqlCommandParser;
 import hua.mulan.slink.cli.SqlCommandParser.SqlCommandCall;
 import org.apache.flink.table.api.SqlParserException;
 import org.apache.flink.table.api.TableEnvironment;
+import org.apache.flink.table.api.TableResult;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -55,7 +56,9 @@ public class SqlSubmit {
         for (SqlCommandCall call : calls) {
             callCommand(call);
         }
-        tEnv.execute("SQL Job");
+//        TableResult tableResult2 = tEnv.sqlQuery("SELECT id, name FROM ods_k").execute();
+//        tableResult2.print();
+//        tEnv.execute("SQL Job");
     }
 
     // --------------------------------------------------------------------------------------------
@@ -94,7 +97,7 @@ public class SqlSubmit {
     private void callInsertInto(SqlCommandCall cmdCall) {
         String dml = cmdCall.operands[0];
         try {
-            tEnv.executeSql(dml);
+            TableResult tr = tEnv.executeSql(dml);
         } catch (SqlParserException e) {
             throw new RuntimeException("SQL parse failed:\n" + dml + "\n", e);
         }

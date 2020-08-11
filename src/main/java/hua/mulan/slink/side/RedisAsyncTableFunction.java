@@ -40,7 +40,10 @@ import java.util.function.Consumer;
  * @author: mulan
  * @create: 2020/08/04
  **/
-@FunctionHint(output = @DataTypeHint("ROW<ct STRING>"))
+@FunctionHint(
+    input = @DataTypeHint("STRING"),
+    output = @DataTypeHint("ROW<ct STRING>")
+)
 public class RedisAsyncTableFunction extends AsyncTableFunction<Row> {
 
     private RedisClient redisClient;
