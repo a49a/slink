@@ -2,6 +2,8 @@
 flink sql strengthen
 
 ## async lookup table support
-redis
-hbase (on the way)
+redis (demo Already completed)
+
+hbase2 (on the way)
+
 jdbc (on the way) 
