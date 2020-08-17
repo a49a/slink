@@ -18,12 +18,13 @@
 
 package hua.mulan.slink;
 
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.TableEnvironment;
 
 public class Runner {
 
     public static void main(String[] args) {
-        TableEnvironment tEnv = EnvFactory.genEnv();
+        StreamExecutionEnvironment env = EnvFactory.genEnv();
     }
 
 }

@@ -18,17 +18,24 @@
 
 package hua.mulan.slink;
 
+import avro.shaded.com.google.common.collect.Maps;
 import hua.mulan.slink.cli.CliOptions;
 import hua.mulan.slink.cli.CliOptionsParser;
 import hua.mulan.slink.cli.SqlCommandParser;
 import hua.mulan.slink.cli.SqlCommandParser.SqlCommandCall;
+import hua.mulan.slink.side.RedisLookupableTableSource;
+import hua.mulan.slink.sink.FooTableSinkFactory;
 import org.apache.flink.table.api.SqlParserException;
 import org.apache.flink.table.api.TableEnvironment;
+//import org.apache.flink.table.api.TableResult;
 import org.apache.flink.table.api.TableResult;
+import org.apache.flink.table.factories.StreamTableSinkFactory;
+import org.apache.flink.table.sinks.TableSink;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 public class SqlSubmit {
 
@@ -50,15 +57,22 @@ public class SqlSubmit {
     }
 
     private void run() throws Exception {
-        this.tEnv = EnvFactory.genEnv();
+        this.tEnv = EnvFactory.genTableEnv();
+        StreamTableSinkFactory factory = new FooTableSinkFactory();
+        Map<String, String> map = Maps.newHashMap();
+//        TableSink sink = factory.createTableSink(map);
+//        tEnv.registerTableSink("ads", sink);
+        tEnv.registerTableSource("dim_r", new RedisLookupableTableSource());
+
         List<String> sql = Files.readAllLines(Paths.get(workSpace + "/" + sqlFilePath));
         List<SqlCommandCall> calls = SqlCommandParser.parse(sql);
         for (SqlCommandCall call : calls) {
             callCommand(call);
         }
+
 //        TableResult tableResult2 = tEnv.sqlQuery("SELECT id, name FROM ods_k").execute();
 //        tableResult2.print();
-//        tEnv.execute("SQL Job");
+        tEnv.execute("SQL Job");
     }
 
     // --------------------------------------------------------------------------------------------
@@ -88,7 +102,8 @@ public class SqlSubmit {
     private void callCreateTable(SqlCommandCall cmdCall) {
         String ddl = cmdCall.operands[0];
         try {
-            tEnv.executeSql(ddl);
+//            tEnv.executeSql(ddl);
+            tEnv.sqlUpdate(ddl);
         } catch (SqlParserException e) {
             throw new RuntimeException("SQL parse failed:\n" + ddl + "\n", e);
         }
@@ -97,7 +112,8 @@ public class SqlSubmit {
     private void callInsertInto(SqlCommandCall cmdCall) {
         String dml = cmdCall.operands[0];
         try {
-            TableResult tr = tEnv.executeSql(dml);
+//            TableResult tr = tEnv.executeSql(dml);
+            tEnv.sqlUpdate(dml);
         } catch (SqlParserException e) {
             throw new RuntimeException("SQL parse failed:\n" + dml + "\n", e);
         }

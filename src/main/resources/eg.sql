@@ -5,6 +5,7 @@ CREATE TABLE ods_k (
     'connector.type' = 'kafka',
     'connector.version' = 'universal',
     'connector.topic' = 'wuren_foo',
+    'connector.topic?' = 'wuren_foo',
     'connector.properties.bootstrap.servers' = 'localhost:9092',
     'connector.properties.zookeeper.connect' = '',
     'connector.properties.group.id' = 'g',

@@ -24,6 +24,7 @@ import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisHashAsyncCommands;
 import io.lettuce.core.api.async.RedisKeyAsyncCommands;
 import org.apache.flink.table.annotation.DataTypeHint;
+//import org.apache.flink.table.annotation.FunctionHint;
 import org.apache.flink.table.annotation.FunctionHint;
 import org.apache.flink.table.functions.AsyncTableFunction;
 import org.apache.flink.table.functions.FunctionContext;
@@ -72,9 +73,9 @@ public class RedisAsyncTableFunction extends AsyncTableFunction<Row> {
         redisFuture.thenAccept(new Consumer<Map<String, String>>() {
             @Override
             public void accept(Map<String, String> values) {
-                int len = 1;
+                int len = 2;
                 Row row = new Row(len);
-                row.setField(0, values.get("ct"));
+                row.setField(1, values.get("ct"));
                 outputFuture.complete(Collections.singletonList(row));
             }
         });

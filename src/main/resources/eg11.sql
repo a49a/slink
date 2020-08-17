@@ -1,16 +1,16 @@
 CREATE TABLE ods_k (
     id BIGINT,
-    name VARCHAR
+    name VARCHAR,
+    pt AS PROCTIME()
 ) WITH (
     'connector' = 'kafka',
     'topic' = 'wuren_foo',
     'properties.bootstrap.servers' = 'localhost:9092',
     'properties.group.id' = 'gg',
-    'scan.startup.mode' = 'earliest-offset',
---     'format' = 'json'
+--     'scan.startup.mode' = 'earliest-offset',
     'format' = 'json',
-    'json.fail-on-missing-field' = 'true',
-    'json.ignore-parse-errors' = 'false'
+    'json.fail-on-missing-field' = 'false',
+    'json.ignore-parse-errors' = 'true'
 );
 
 CREATE TABLE ads_m (
@@ -25,8 +25,17 @@ CREATE TABLE ads_m (
     'password' = 'root'
 );
 
--- INSERT INTO ads_m SELECT id, tr(name) FROM ods_k;
-
 INSERT INTO ads_m
-    SELECT id, ct AS name
-    FROM ods_k, LATERAL TABLE(lookup_redis(name));
+    SELECT id, r.ct as name
+    FROM ods_k
+        LEFT JOIN dim_r
+        FOR SYSTEM_TIME AS OF ods_k.pt AS r
+            ON r.key = ods_k.name;
+
+-- INSERT INTO ads_m
+--     SELECT id, name
+--     FROM ods_k;
+
+-- INSERT INTO ads_m
+-- SELECT id, ct AS name
+-- FROM ods_k LEFT JOIN LATERAL TABLE(lookup_redis(name));

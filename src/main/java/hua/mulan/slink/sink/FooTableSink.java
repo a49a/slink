@@ -3,10 +3,9 @@ package hua.mulan.slink.sink;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSink;
+import org.apache.flink.streaming.api.operators.StreamSink;
 import org.apache.flink.table.api.TableSchema;
 import org.apache.flink.table.sinks.AppendStreamTableSink;
-import org.apache.flink.table.sinks.BatchTableSink;
-import org.apache.flink.table.sinks.CsvTableSink;
 import org.apache.flink.table.sinks.TableSink;
 import org.apache.flink.table.types.DataType;
 import org.apache.flink.table.types.utils.TypeConversions;
@@ -19,12 +18,12 @@ import java.util.Arrays;
  * @author: wuren
  * @create: 2020/08/06
  **/
-public class FooTableSInk implements AppendStreamTableSink<Row> {
+public class FooTableSink implements AppendStreamTableSink<Row> {
 
     private String[] fieldNames;
     private DataType[] fieldTypes;
 
-    public FooTableSInk(String[] fieldNames, DataType[] fieldTypes) {
+    public FooTableSink(String[] fieldNames, DataType[] fieldTypes) {
         this.fieldNames = fieldNames;
         this.fieldTypes = fieldTypes;
     }
@@ -53,7 +52,7 @@ public class FooTableSInk implements AppendStreamTableSink<Row> {
         DataType[] dataTypes = Arrays.stream(fieldTypes)
             .map(TypeConversions::fromLegacyInfoToDataType)
             .toArray(DataType[]::new);
-        return new FooTableSInk(fieldNames, dataTypes);
+        return new FooTableSink(fieldNames, dataTypes);
     }
 }
 

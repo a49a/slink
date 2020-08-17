@@ -22,9 +22,7 @@ import hua.mulan.slink.side.RedisAsyncTableFunction;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
-import org.apache.flink.table.factories.TableFactoryUtil;
-import org.apache.flink.table.functions.ScalarFunction;
-import org.apache.flink.table.sinks.TableSink;
+//import org.apache.flink.table.api.java.StreamTableEnvironment;
 
 /**
  * @program: slink
@@ -33,7 +31,12 @@ import org.apache.flink.table.sinks.TableSink;
  **/
 public class EnvFactory {
 
-    public static StreamTableEnvironment genEnv() {
+    public static StreamExecutionEnvironment genEnv() {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        return env;
+    }
+
+    public static StreamTableEnvironment genTableEnv() {
         StreamExecutionEnvironment bsEnv = StreamExecutionEnvironment.getExecutionEnvironment();
         EnvironmentSettings bsSettings = EnvironmentSettings.newInstance()
             .useBlinkPlanner()
@@ -48,6 +51,7 @@ public class EnvFactory {
         tEnv.createTemporarySystemFunction("tr", Tr.class);
         tEnv.createTemporarySystemFunction("lookup_redis", RedisAsyncTableFunction.class);
         tEnv.createTemporarySystemFunction("tf", Tf.class);
+//        tEnv.registerFunction("tr", new Tr());
     }
 
 }
