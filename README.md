@@ -1,5 +1,5 @@
 # slink
-flink sql strengthen
+flink sql strengthen for flink 1.11
 
 ## async lookup table support
 redis (demo Already completed)
