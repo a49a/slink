@@ -13,6 +13,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <flink.version>1.11.1</flink.version>
     <scala.version>2.11</scala.version>
+    <vertx.version>3.9.2</vertx.version>
   </properties>
 
   <dependencies>
@@ -108,6 +109,19 @@
       <version>4.0.2</version>
     </dependency>
 
+    <!--异步数据库连接-->
+    <!--需要提取到对应的插件-->
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-jdbc-client</artifactId>
+      <version>${vertx.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-core</artifactId>
+      <version>${vertx.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
