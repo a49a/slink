@@ -1,4 +1,4 @@
-package hua.mulan.slink.side;
+package hua.mulan.slink.util;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

@@ -14,6 +14,7 @@
     <flink.version>1.11.1</flink.version>
     <scala.version>2.11</scala.version>
     <vertx.version>3.9.2</vertx.version>
+    <hbase.version>1.4.13</hbase.version>
   </properties>
 
   <dependencies>
@@ -93,7 +94,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.20</version>
+      <version>5.1.47</version>
     </dependency>
 
     <!-- redis -->
@@ -122,6 +123,21 @@
       <artifactId>vertx-core</artifactId>
       <version>${vertx.version}</version>
     </dependency>
+
+
+    <!--HBase-->
+    <dependency>
+      <groupId>org.apache.hbase</groupId>
+      <artifactId>hbase-client</artifactId>
+      <version>${hbase.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hbase</groupId>
+      <artifactId>asynchbase</artifactId>
+      <version>1.7.0</version>
+    </dependency>
+
   </dependencies>
 
   <build>

@@ -1,8 +1,6 @@
 package hua.mulan.slink.side;
 
-import io.lettuce.core.RedisClient;
-import io.lettuce.core.RedisFuture;
-import io.lettuce.core.api.async.RedisHashAsyncCommands;
+import hua.mulan.slink.util.ThreadFactory;
 import io.vertx.ext.sql.SQLClient;
 import org.apache.flink.table.functions.AsyncTableFunction;
 import org.apache.flink.table.functions.FunctionContext;
@@ -10,12 +8,10 @@ import org.apache.flink.types.Row;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 
 /**
  * @program: slink
