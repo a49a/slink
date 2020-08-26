@@ -7,6 +7,7 @@ import org.hbase.async.Config;
 import org.hbase.async.GetRequest;
 import org.hbase.async.HBaseClient;
 import org.hbase.async.KeyValue;
+import org.hbase.async.auth.KerberosClientAuthProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.security.krb5.KrbException;
@@ -27,19 +28,25 @@ public class HBaseAsyncClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(HBaseAsyncClient.class);
 
-    private static final int DEFAULT_POOL_SIZE = 16 + 1;
+    private static final int DEFAULT_POOL_SIZE = 16;
 
     HBaseClient client;
 
     public void init() throws KrbException, IOException {
 
+        System.setProperty(HBaseConfKeyConsts.KRB5_CONF, HBaseConfValConsts.KRB5_PATH);
+
         Config config = new Config();
         config.overrideConfig(HBaseConfKeyConsts.ZK_QUORUM, HBaseConfValConsts.CDH_QUORUM);
         config.overrideConfig(HBaseConfKeyConsts.ZNODE_PARENT, HBaseConfValConsts.ZNODE_PARENT);
 
-        config.overrideConfig("hbase.security.auth.enable", "true");
         config.overrideConfig("hadoop.security.authentication", HBaseConfValConsts.AUTH_TYPE);
         config.overrideConfig("hbase.security.authorization", HBaseConfValConsts.AUTH_TYPE);
+        config.overrideConfig("hbase.security.authentication", HBaseConfValConsts.AUTH_TYPE);
+
+        config.overrideConfig("hbase.security.auth.enable", "true");
+        config.overrideConfig("hbase.workers.size", "2");
+
         config.overrideConfig("hbase.sasl.clientconfig", "Client");
         config.overrideConfig("hbase.kerberos.regionserver.principal", HBaseConfValConsts.G_PRINCIPAL);
         System.setProperty("zookeeper.sasl.client", "false");
@@ -51,12 +58,11 @@ public class HBaseAsyncClient {
         String jaasFilePath = "/Users/luna/etc/cdh/JAAS.conf";
         System.setProperty(HBaseConfKeyConsts.JAVA_AUTH_LOGIN_CONF, jaasFilePath);
         config.overrideConfig(HBaseConfKeyConsts.JAVA_AUTH_LOGIN_CONF, jaasFilePath);
-        System.setProperty(HBaseConfKeyConsts.KRB5_CONF, HBaseConfValConsts.KRB5_PATH);
         System.setProperty("javax.security.auth.useSubjectCredsOnly", "true");
 
-        config.overrideConfig("hbase.client.operation.timeout","24000");
-        config.overrideConfig("hbase.rpc.timeout","10000");
-        config.overrideConfig("hbase.client.scanner.timeout.period","10000");
+//        config.overrideConfig("hbase.client.operation.timeout","24000");
+//        config.overrideConfig("hbase.rpc.timeout","10000");
+//        config.overrideConfig("hbase.client.scanner.timeout.period","10000");
 
         //refresh
         sun.security.krb5.Config.refresh();
@@ -69,6 +75,8 @@ public class HBaseAsyncClient {
             new LinkedBlockingQueue<>(), new ThreadFactory("hbase-async"));
 
         client = new HBaseClient(config, executorService);
+//        KerberosClientAuthProvider authProvider = new KerberosClientAuthProvider(client);
+
     }
 
     public void initNormal() {

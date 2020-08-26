@@ -45,7 +45,7 @@ public class HBaseSyncClient {
     private ResultScanner resultScanner = null;
 
     public void init() throws IOException {
-        conn = HBaseConnectionFactory.getConnection();
+        conn = HBaseConnectionFactory.getConnectionWithKerberos();
         table = conn.getTable(TableName.valueOf(tableName));
     }
 

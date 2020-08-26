@@ -11,8 +11,8 @@ import java.io.IOException;
  **/
 public class HBaseTestRunner {
     public static void main(String[] args) throws IOException, KrbException {
-        async();
-//        sync();
+//        async();
+        sync();
     }
 
     public static void sync() throws IOException {

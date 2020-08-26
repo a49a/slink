@@ -5,6 +5,8 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
+import org.apache.hadoop.hbase.security.AbstractHBaseSaslRpcClient;
+import org.apache.hadoop.hbase.security.HBaseSaslRpcClient;
 import org.apache.hadoop.security.UserGroupInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +25,7 @@ public class HBaseConnectionFactory {
     private static final String ZNODE = "/hbase";
 
     static final String PRINCIPAL = "hbase/eng-cdh1@DTSTACK.COM";
-    static final String KEYTAB_PATH = "/Users/luna/etc/cdh/keyteb/hbase-master.keytab";
+    static final String KEYTAB_PATH = "/Users/luna/etc/cdh/keytab/hbase-master.keytab";
     static final String KRB5_PATH = "/etc/krb5.conf";
     static final String AUTH_TYPE = "kerberos";
     static String KUDU_QUORUM = "kudu1:2181,kudu2:2181,kudu3:2181";
@@ -38,21 +40,23 @@ public class HBaseConnectionFactory {
         Configuration conf = HBaseConfiguration.create();
         conf.set(HBaseConfKeyConsts.ZK_QUORUM, CDH_QUORUM);
         conf.set(HBaseConfKeyConsts.ZNODE_PARENT, ZNODE);
-
+        HBaseSaslRpcClient
         // Kerberos 配置
-
         System.setProperty(HBaseConfKeyConsts.KRB5_CONF, KRB5_PATH);
         System.setProperty("javax.security.auth.useSubjectCredsOnly", "true");
 
-        conf.set("hadoop.security.authentication", AUTH_TYPE);
-        conf.set("hbase.security.authorization", AUTH_TYPE);
+        conf.set("hadoop.security.authentication", HBaseConfValConsts.AUTH_TYPE);
+        conf.set("hbase.security.authentication", HBaseConfValConsts.AUTH_TYPE);
 
-        conf.set("hbase.master.kerberos.principal", PRINCIPAL);
-        conf.set("keytab.file", KEYTAB_PATH);
-        conf.set("kerberos.principal", PRINCIPAL);
-        conf.addResource(new Path("file:///Users/luna/etc/cdh/hbase-site.xml"));
-        conf.addResource(new Path("file:///Users/luna/etc/cdh/hdfs-site.xml"));
+//        conf.setBoolean("hadoop.security.authorization", true);
+//        conf.setBoolean("hbase.security.authorization", true);
 
+//        conf.set("hbase.rpc.protection", "authentication");
+//        conf.set("hbase.master.kerberos.principal", HBaseConfValConsts.G_PRINCIPAL);
+//        conf.set("keytab.file", KEYTAB_PATH);
+//        conf.set("kerberos.principal", HBaseConfValConsts.G_PRINCIPAL);
+
+        conf.set("hbase.regionserver.kerberos.principal", HBaseConfValConsts.G_PRINCIPAL);
 
         conf.setInt("hbase.client.operation.timeout",24000);
         conf.setInt("hbase.rpc.timeout",10000);

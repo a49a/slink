@@ -13,6 +13,7 @@ public class HBaseConfKeyConsts {
     public static final String KRB5_CONF = "java.security.krb5.conf";
     public final static String HBASE_SECURITY_AUTHENTICATION = "hbase.security.authentication";
     public final static String HBASE_SECURITY_AUTHORIZATION = "hbase.security.authorization";
+    public final static String HADOOP_SECURITY_AUTHORIZATION = "hadoop.security.authorization";
     public static final String JAVA_AUTH_LOGIN_CONF = "java.security.auth.login.config";
 
 }
