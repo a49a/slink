@@ -1,12 +1,9 @@
-package hua.mulan.slink.factories.hbase1;
+package hua.mulan.slink.factories.hbase;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
-import org.apache.hadoop.hbase.security.AbstractHBaseSaslRpcClient;
-import org.apache.hadoop.hbase.security.HBaseSaslRpcClient;
 import org.apache.hadoop.security.UserGroupInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,11 +35,10 @@ public class HBaseConnectionFactory {
 
     public static Connection getConnectionWithKerberos() throws IOException {
         Configuration conf = HBaseConfiguration.create();
-        conf.set(HBaseConfKeyConsts.ZK_QUORUM, CDH_QUORUM);
+        conf.set(HBaseConfKeyConsts.ZK_QUORUM, HBaseConfValConsts.CDH_QUORUM);
         conf.set(HBaseConfKeyConsts.ZNODE_PARENT, ZNODE);
-        HBaseSaslRpcClient
         // Kerberos 配置
-        System.setProperty(HBaseConfKeyConsts.KRB5_CONF, KRB5_PATH);
+        System.setProperty(HBaseConfKeyConsts.KRB5_CONF, HBaseConfValConsts.KRB5_PATH);
         System.setProperty("javax.security.auth.useSubjectCredsOnly", "true");
 
         conf.set("hadoop.security.authentication", HBaseConfValConsts.AUTH_TYPE);
@@ -58,11 +54,11 @@ public class HBaseConnectionFactory {
 
         conf.set("hbase.regionserver.kerberos.principal", HBaseConfValConsts.G_PRINCIPAL);
 
-        conf.setInt("hbase.client.operation.timeout",24000);
-        conf.setInt("hbase.rpc.timeout",10000);
-        conf.setInt("hbase.client.scanner.timeout.period",10000);
+//        conf.setInt("hbase.client.operation.timeout",24000);
+//        conf.setInt("hbase.rpc.timeout",10000);
+//        conf.setInt("hbase.client.scanner.timeout.period",10000);
 
-        UserGroupInformation userGroupInformation = HbaseConfigUtils.loginAndReturnUGI(conf, PRINCIPAL, KEYTAB_PATH);
+        UserGroupInformation userGroupInformation = HbaseConfigUtils.loginAndReturnUGI(conf, HBaseConfValConsts.PRINCIPAL, HBaseConfValConsts.KEYTAB_PATH);
         Connection conn = userGroupInformation.doAs((PrivilegedAction<Connection>) () -> {
             try {
                 return ConnectionFactory.createConnection(conf);

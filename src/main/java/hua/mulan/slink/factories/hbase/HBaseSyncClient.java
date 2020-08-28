@@ -1,8 +1,6 @@
-package hua.mulan.slink.factories.hbase1;
+package hua.mulan.slink.factories.hbase;
 
-import avro.shaded.com.google.common.cache.CacheBuilder;
 import org.apache.commons.collections.map.HashedMap;
-import org.apache.flink.table.descriptors.TableDescriptor;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CellUtil;
@@ -11,22 +9,17 @@ import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
-import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.hadoop.security.UserGroupInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.security.PrivilegedAction;
 import java.util.Map;
-
-import static hua.mulan.slink.factories.hbase1.HbaseConfigUtils.KEY_JAVA_SECURITY_KRB5_CONF;
 
 /**
  * @program: slink

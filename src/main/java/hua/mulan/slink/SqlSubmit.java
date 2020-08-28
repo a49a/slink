@@ -23,14 +23,12 @@ import hua.mulan.slink.cli.CliOptions;
 import hua.mulan.slink.cli.CliOptionsParser;
 import hua.mulan.slink.cli.SqlCommandParser;
 import hua.mulan.slink.cli.SqlCommandParser.SqlCommandCall;
-import hua.mulan.slink.side.RedisLookupableTableSource;
+import hua.mulan.slink.factories.redis.RedisLookupableTableSource;
 import hua.mulan.slink.sink.FooTableSinkFactory;
 import org.apache.flink.table.api.SqlParserException;
 import org.apache.flink.table.api.TableEnvironment;
 //import org.apache.flink.table.api.TableResult;
-import org.apache.flink.table.api.TableResult;
 import org.apache.flink.table.factories.StreamTableSinkFactory;
-import org.apache.flink.table.sinks.TableSink;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;

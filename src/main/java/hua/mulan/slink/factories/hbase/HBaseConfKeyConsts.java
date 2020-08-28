@@ -1,4 +1,4 @@
-package hua.mulan.slink.factories.hbase1;
+package hua.mulan.slink.factories.hbase;
 
 /**
  * @program: slink

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package hua.mulan.slink.side;
+package hua.mulan.slink.factories.redis;
 
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisFuture;

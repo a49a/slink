@@ -1,4 +1,4 @@
-package hua.mulan.slink.factories.hbase1;
+package hua.mulan.slink.factories.hbase;
 
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;

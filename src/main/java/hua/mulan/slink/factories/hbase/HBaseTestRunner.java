@@ -1,4 +1,4 @@
-package hua.mulan.slink.factories.hbase1;
+package hua.mulan.slink.factories.hbase;
 
 import sun.security.krb5.KrbException;
 
@@ -20,7 +20,7 @@ public class HBaseTestRunner {
         try  {
             client.init();
 //            client.createTable();
-            client.put();
+//            client.put();
             client.get();
         } catch (Exception e) {
             System.out.println(e);

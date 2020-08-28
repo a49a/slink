@@ -1,4 +1,4 @@
-package hua.mulan.slink.factories.hbase1;
+package hua.mulan.slink.factories.hbase;
 
 import com.stumbleupon.async.Deferred;
 import hua.mulan.slink.util.ThreadFactory;
@@ -7,12 +7,10 @@ import org.hbase.async.Config;
 import org.hbase.async.GetRequest;
 import org.hbase.async.HBaseClient;
 import org.hbase.async.KeyValue;
-import org.hbase.async.auth.KerberosClientAuthProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.security.krb5.KrbException;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
