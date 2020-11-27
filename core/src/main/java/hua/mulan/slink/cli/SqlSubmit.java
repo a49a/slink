@@ -16,14 +16,11 @@
  * limitations under the License.
  */
 
-package hua.mulan.slink;
+package hua.mulan.slink.cli;
 
 import avro.shaded.com.google.common.collect.Maps;
-import hua.mulan.slink.cli.CliOptions;
-import hua.mulan.slink.cli.CliOptionsParser;
-import hua.mulan.slink.cli.SqlCommandParser;
+import hua.mulan.slink.EnvFactory;
 import hua.mulan.slink.cli.SqlCommandParser.SqlCommandCall;
-import hua.mulan.slink.factories.redis.RedisLookupableTableSource;
 import hua.mulan.slink.sink.FooTableSinkFactory;
 import org.apache.flink.table.api.SqlParserException;
 import org.apache.flink.table.api.TableEnvironment;
@@ -100,7 +97,6 @@ public class SqlSubmit {
         String ddl = cmdCall.operands[0];
         try {
             tEnv.executeSql(ddl);
-//            tEnv.sqlUpdate(ddl);
         } catch (SqlParserException e) {
             throw new RuntimeException("SQL parse failed:\n" + ddl + "\n", e);
         }
@@ -110,7 +106,6 @@ public class SqlSubmit {
         String dml = cmdCall.operands[0];
         try {
             TableResult tr = tEnv.executeSql(dml);
-//            tEnv.sqlUpdate(dml);
         } catch (SqlParserException e) {
             throw new RuntimeException("SQL parse failed:\n" + dml + "\n", e);
         }

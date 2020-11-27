@@ -24,6 +24,7 @@ import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 //import org.apache.flink.table.api.java.StreamTableEnvironment;
 
+import org.apache.flink.api.common.time.Time;
 /**
  * @program: slink
  * @author: mulan
@@ -37,15 +38,10 @@ public class EnvFactory {
     }
 
     public static StreamTableEnvironment createTableEnv() {
-        StreamExecutionEnvironment bsEnv = StreamExecutionEnvironment.getExecutionEnvironment();
-        EnvironmentSettings bsSettings =
-            EnvironmentSettings.newInstance()
-            .useBlinkPlanner()
-            .inStreamingMode()
-            .build();
-        StreamTableEnvironment bsTableEnv = StreamTableEnvironment.create(bsEnv, bsSettings);
-        registerUdf(bsTableEnv);
-        return bsTableEnv;
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        StreamTableEnvironment tEnv = StreamTableEnvironment.create(env);
+        tEnv.getConfig().setIdleStateRetentionTime(Time.days(1), Time.days(2));
+        return tEnv;
     }
 
     private static void registerUdf(StreamTableEnvironment tEnv) {

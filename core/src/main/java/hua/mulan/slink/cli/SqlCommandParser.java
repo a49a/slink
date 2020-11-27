@@ -47,6 +47,7 @@ public final class SqlCommandParser {
 			stmt.append("\n").append(line);
 			if (line.trim().endsWith(";")) {
 				Optional<SqlCommandCall> optionalCall = parse(stmt.toString());
+				// TODO add CREATE VIEW
 				if (optionalCall.isPresent()) {
 					calls.add(optionalCall.get());
 				} else {

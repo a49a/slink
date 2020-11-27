@@ -18,7 +18,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <flink.version>1.11.1</flink.version>
+    <flink.version>1.11.2</flink.version>
     <scala.version>2.11</scala.version>
     <vertx.version>3.9.4</vertx.version>
     <hbase.version>1.4.13</hbase.version>
@@ -91,21 +91,27 @@
     </dependency>
 
     <!-- jdbc -->
-<!--    <dependency>-->
-<!--      <groupId>org.apache.flink</groupId>-->
-<!--      <artifactId>flink-jdbc_${scala.version}</artifactId>-->
-<!--      <version>1.10.1</version>-->
-<!--    </dependency>-->
 
     <dependency>
       <groupId>org.apache.flink</groupId>
       <artifactId>flink-connector-jdbc_${scala.version}</artifactId>
       <version>1.11.1</version>
     </dependency>
+    <!--    <dependency>-->
+    <!--      <groupId>org.apache.flink</groupId>-->
+    <!--      <artifactId>flink-jdbc_${scala.version}</artifactId>-->
+    <!--      <version>1.10.1</version>-->
+    <!--    </dependency>-->
+
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.22</version>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.2.18</version>
     </dependency>
 
     <!-- redis -->
@@ -174,6 +180,7 @@
       </exclusions>
     </dependency>
 
+<!--    debug-->
 <!--    <dependency>-->
 <!--      <groupId>ch.qos.logback</groupId>-->
 <!--      <artifactId>logback-classic</artifactId>-->
