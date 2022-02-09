@@ -24,7 +24,7 @@
     <hbase.version>1.4.13</hbase.version>
     <scala.binary.version>2.11</scala.binary.version>
     <kafka.version>2.2.0</kafka.version>
-    <hadoop.version>2.7.3</hadoop.version>
+    <hadoop.version>2.10.1</hadoop.version>
   </properties>
 
   <dependencies>
